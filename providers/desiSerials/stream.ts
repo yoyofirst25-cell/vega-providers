@@ -5,11 +5,13 @@ export const getStream = async function ({
   type,
   signal,
   providerContext,
+  isDownload,
 }: {
   link: string;
   type: string;
   signal?: AbortSignal;
   providerContext: ProviderContext;
+  isDownload?: boolean;
 }): Promise<Stream[]> {
   const res = await providerContext.axios.get(link, {
     signal,
@@ -34,7 +36,7 @@ export const getStream = async function ({
       streams.push({
         server: "TVLogy",
         link: playerUrl,
-        type: "mp4",
+        type: "iframe",
         quality: "720p",
       });
     }
