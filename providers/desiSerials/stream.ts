@@ -25,19 +25,22 @@ export const getStream = async function ({
 
   const streams: Stream[] = [];
 
-  $("iframe").each((_, el) => {
+  $("source").each((_, el) => {
     const src = $(el).attr("src");
 
     if (!src) return;
 
-    const playerUrl = new URL(src, link).href;
+    const streamUrl = new URL(src, link).href;
 
-    if (playerUrl.includes("tvlogy")) {
+    if (
+      streamUrl.includes(".m3u8") ||
+      streamUrl.includes(".mp4")
+    ) {
       streams.push({
         server: "TVLogy",
-        link: playerUrl,
-        type: "iframe",
-        quality: "720p",
+        link: streamUrl,
+        type: streamUrl.includes(".m3u8") ? "m3u8" : "mp4",
+        quality: "720",
       });
     }
   });
